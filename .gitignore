@@ -1,0 +1,24 @@
+# Compiled class files
+*.class
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+
+# Build output directories
+/out/
+/1_MultiThreadingUdemyFree/out/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment files (if any)
+.env
+
+# Ignore README backup or temp files
+*~
+*.swp
