@@ -205,7 +205,7 @@ public class LambdaThreadDemo {
 
 Understanding the different states of a thread helps you manage thread behavior and troubleshoot issues.
 
-![Thread Lifecycle](src/day1/Imp-Pictures/1_thread_lifecycle.png)
+![Thread Lifecycle](../day1/Imp-Pictures/1_thread_lifecycle.png)
 
 🔗 Learn more about Thread Lifecycle:
 - GFG: https://www.geeksforgeeks.org/java/java-multithreading-tutorial/
