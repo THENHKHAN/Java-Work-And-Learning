@@ -1,4 +1,4 @@
-# 🧵 Java Thread: Overriding `start()` and `run()` Methods
+# 🧵 Multithreading in Java
 
 ## 📁 Class: [`3_SomePlayingStuff.java`](_3_SomePlayingStuff.java)
 
