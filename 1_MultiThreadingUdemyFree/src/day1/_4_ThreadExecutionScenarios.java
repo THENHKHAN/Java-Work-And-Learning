@@ -51,20 +51,111 @@ Since we want to ignore the main() thread in logic which is always present and c
  */
 
 
+import day1.threadexecutioncaseclasses.MultipleTasksMultipleThreads;
+import day1.threadexecutioncaseclasses.MultipleTasksMultipleThreads2;
+import day1.threadexecutioncaseclasses.MultipleTasksMultipleThreads3;
+import day1.threadexecutioncaseclasses.SingleTaskSingleThread;
+
 public class _4_ThreadExecutionScenarios {
 
+    public static void main(String[] args) {
+        System.out.println("------- Starting to cover multiple cases to create and do some work in Multithreading ---------------- ");
+
+        // will call from here:
+
+//        1. Single task from a single thread
+
+//        SingleTaskSingleThread singleThreadSingleTask = new SingleTaskSingleThread(); // thread created
+//        singleThreadSingleTask.start();// it will run the SingleTaskSingleThread thread run() function as ONE TASK.
+            /*
+            OUTPUT:
+            Task -1 From SingleTasksSingleThread Thread.
+             */
+
+//        2. Single task from multiple threads
+//        System.out.println("Task execution started by Thread-1  ......");
+//        SingleTaskSingleThread th1 = new SingleTaskSingleThread(); // thread-1 created
+//        th1.start(); // it will by 1st thread obj
+//
+//        System.out.println("Task execution started by Thread-2  ......");
+//        SingleTaskSingleThread th2 = new SingleTaskSingleThread(); // thread-2 created
+//        th2.start();
+                        // similarly we can have multiple thread.
+
+         /*
+            OUTPUT:
+Task execution started by Thread-1  ......
+Task execution started by Thread-2  ......
+Task -1 From SingleTasksSingleThread Thread.
+Task -1 From SingleTasksSingleThread Thread.
+Val : 0
+Val : 1
+Val : 0
+Val : 2
+Val : 3
+Val : 1
+Val : 2
+Val : 3
+NOTE: You can see that all thread (here two) are executing parallel.
+             */
+
+//        3. Multiple tasks from a single thread --- No use of it since once the thread goes in dead state and when we call start with the same thread it will throw IllegaState Exception
 
 
-    public
+//        4. Multiple tasks from multiple threads
+        MultipleTasksMultipleThreads th1 = new MultipleTasksMultipleThreads(); // created thread-1
+        th1.start();
 
+        MultipleTasksMultipleThreads2 th2 = new MultipleTasksMultipleThreads2(); // created thread-1
+        th2.start();
 
+        MultipleTasksMultipleThreads3 th3 = new MultipleTasksMultipleThreads3();
+        th3.start();
+        // instead of creating separate file we can define in a single like in this fill and extends Thread all three classes (mostly used). I created to understand each flow.
+        /*
+        sample output : with just a print statement :
+        Task -1 From multipleTasksMultipleThreads Thread.
+        Task -2 From multipleTasksMultipleThreads2 Thread.
+        Task -3 From MultipleTasksMultipleThreads3 Thread.
+
+        NOTE: Here, its seems like they ran one after other but no , they actually ran together parallel. Let me write loop so we can see by printing.
+         */
+
+        /*
+
+ Task -1 From multipleTasksMultipleThreads Thread.
+Task -2 From multipleTasksMultipleThreads2 Thread.
+Task -3 From MultipleTasksMultipleThreads3 Thread.
+Loop from Thread-1 : value  ---> 1
+Loop from Thread-1 : value  ---> 2
+Loop from Thread-1 : value  ---> 3
+Loop from Thread-1 : value  ---> 4
+Loop from Thread-3 : value  ---> 100
+Loop from Thread-3 : value  ---> 200
+Loop from Thread-3 : value  ---> 300
+Loop from Thread-3 : value  ---> 400
+Loop from Thread-2 : value  ---> 10
+Loop from Thread-2 : value  ---> 20
+Loop from Thread-2 : value  ---> 30
+Loop from Thread-2 : value  ---> 40
+
+NOTE: See we have called thread 1, 2, and then 3 but thread executed 1 , 3 and then 2. If you run same program you could see 2,3 and then 1 or 1, 2, then 3.
+            they all executing in parallel.
+
+  ===>  WHICH thread will execute 1st we can't guarantee because it decided by JVM/ThreadSchedular etc. In future will look in detail how we can prioritize the thread.
+         */
+
+    }
+    
 }
 
 /*
 ##### Special case 3 - T.S : 10:00 ===>   https://www.youtube.com/watch?v=hJXJgHmso2M&list=PLlhM4lkb2sEh1pBs0KBb63PlKKqRx6M1a&index=5
 
 /*
- Note on Case 3: Multiple tasks from a single thread
+ Note on Case 3: Multiple tasks from a single thread -No use since if use method overloading so we have to defince multiple run() which is not possible since Thread
+                            have only a single run() method that does not take argument.
+
 
  - This means one thread runs several tasks one after another, NOT at the same time.
  - For example, if the thread runs music, then video, then timer, it finishes one fully before starting the next.
@@ -86,80 +177,3 @@ For Case - 4 QA-
  - This approach improves code readability, maintenance, and debugging.
  - While possible to use one class with multiple methods, it often leads to confusion and tightly coupled code.
 */
-
-/* REF
-
-public class _4_ThreadExecutionScenarios {
-
-    // 1. Single task from a single thread
-    public static void singleTaskSingleThread() {
-        class SingleTaskThread extends Thread {
-            public void run() {
-                System.out.println("Thread task is running (Single Task, Single Thread)");
-            }
-        }
-
-        SingleTaskThread t = new SingleTaskThread();
-        t.start();
-    }
-
-    // 2. Single task from multiple threads
-    public static void singleTaskMultipleThreads() {
-        class SharedTask extends Thread {
-            public void run() {
-                System.out.println("Shared task running from: " + Thread.currentThread().getName());
-            }
-        }
-
-        SharedTask t1 = new SharedTask();
-        SharedTask t2 = new SharedTask();
-
-        t1.start();
-        t2.start();
-    }
-
-    // 3. Multiple tasks from a single thread
-    public static void multipleTasksSingleThread() {
-        class TaskPerformer {
-            void taskOne() {
-                System.out.println("Performing Task 1");
-            }
-
-            void taskTwo() {
-                System.out.println("Performing Task 2");
-            }
-        }
-
-        TaskPerformer performer = new TaskPerformer();
-        performer.taskOne();
-        performer.taskTwo();
-    }
-
-    // 4. Multiple tasks from multiple threads
-    public static void multipleTasksMultipleThreads() {
-        class TaskOne extends Thread {
-            public void run() {
-                System.out.println("Task 1 is running in " + Thread.currentThread().getName());
-            }
-        }
-
-        class TaskTwo extends Thread {
-            public void run() {
-                System.out.println("Task 2 is running in " + Thread.currentThread().getName());
-            }
-        }
-
-        new TaskOne().start();
-        new TaskTwo().start();
-    }
-
-    public static void main(String[] args) {
-        // Uncomment one at a time to test each case clearly
-
-        // singleTaskSingleThread();
-        // singleTaskMultipleThreads();
-        // multipleTasksSingleThread();
-        // multipleTasksMultipleThreads();
-    }
-}
- */
