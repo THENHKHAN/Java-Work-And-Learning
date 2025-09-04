@@ -22,7 +22,15 @@ package day2.threadmethods.thread.management.and.control;
  **/
 
 
-
+class TestingDaemonThread extends Thread{
+    public void run(){
+        if(Thread.currentThread().isDaemon()){
+            System.out.println("This is Daemon thread .....");
+        } else{
+            System.out.println("This is normal Thread");
+        }
+    }
+}
 
 
 public class DaemonThread {
@@ -30,8 +38,17 @@ public class DaemonThread {
 //    https://www.youtube.com/watch?v=qfyd0BsqEJ0&list=PLlhM4lkb2sEh1pBs0KBb63PlKKqRx6M1a&index=8                      smart Programming
 
 //durgesh -TS- 00:53:00 ---->  https://www.youtube.com/watch?v=4uQAokzfm-Q&t=745s          with  Producer–Consumer Problem Mini Project
-
+// smart prog -covered 9-10 Props that we must understand:  https://www.youtube.com/watch?v=qfyd0BsqEJ0&list=PLlhM4lkb2sEh1pBs0KBb63PlKKqRx6M1a&index=11
     public static void myMain(){
         System.out.println("\n--------- This is Daemon Thread Class : VVV Important for interview perspective as well --------- \n");
+
+        System.out.println("Hello from main THREAD ............");
+        TestingDaemonThread th = new TestingDaemonThread();
+        th.setDaemon(true); // set thread as daemon
+        th.start();
+        /*
+Hello from main THREAD ............
+This is Daemon thread .....
+         */
     }
 }
